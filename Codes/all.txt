@@ -1,0 +1,43 @@
+#include "DHT.h"
+#include "Wire.h"       
+#define DHTTYPE DHT11   
+#define dht_dpin 4
+#define TRIGGER_PIN  0
+#define ECHO_PIN     2
+DHT dht(dht_dpin, DHTTYPE); 
+void setup(void)
+{ 
+  dht.begin();
+  Serial.begin(115200);
+  pinMode(TRIGGER_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(BUILTIN_LED, OUTPUT);
+  delay(1000);
+
+}
+void loop() {
+  
+  long duration, distance;
+  digitalWrite(TRIGGER_PIN, LOW);  // Added this line
+  delayMicroseconds(2); // Added this line
+  digitalWrite(TRIGGER_PIN, HIGH);
+  delayMicroseconds(10); // Added this line
+  digitalWrite(TRIGGER_PIN, LOW);
+  duration = pulseIn(ECHO_PIN, HIGH);
+  distance = (duration/2) / 29.1;   
+   
+  int sensorValue= analogRead(A0);
+  float lpg= sensorValue/5;
+   
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();         
+     
+     if(t>=35&&distance<4&&lpg>50){
+      Serial.println("...!!Danger!!...");
+    }else{
+      Serial.println("All OK ");
+    }
+    
+
+ delay(1000);
+}

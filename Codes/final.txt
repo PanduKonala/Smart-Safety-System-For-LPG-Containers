@@ -1,0 +1,87 @@
+#include<Adafruit_MQTT_Client.h>
+#include<ESP8266WiFi.h>
+
+#include "DHT.h"
+#include "Wire.h"       
+
+#define wifi_name "Redmi"
+#define pswd "loki15332"
+#define server "io.adafruit.com"
+#define port 1883
+#define username "godfather1234"
+#define aiokey "07ac4113d71144df9db3d7e2c9f8b666"
+
+
+#define DHTTYPE DHT11   
+#define dht_dpin 4
+#define TRIGGER_PIN  0
+#define ECHO_PIN     2
+DHT dht(dht_dpin, DHTTYPE); 
+
+WiFiClient me;
+
+Adafruit_MQTT_Client mqtt(&me,server,port,username,aiokey);
+
+Adafruit_MQTT_Publish LDR_data = Adafruit_MQTT_Publish(&mqtt,username"/feeds/alert");
+
+void setup(void)
+{ 
+  dht.begin();
+  Serial.begin(115200);
+  pinMode(TRIGGER_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(BUILTIN_LED, OUTPUT);
+  
+  Serial.println("Connecting to");
+  Serial.print(wifi_name);
+  WiFi.begin(wifi_name,pswd);
+  while(WiFi.status() != WL_CONNECTED)
+  {
+   delay(500);
+   Serial.print(".");
+  }
+   Serial.println("IP Address is:");
+   Serial.println(WiFi.localIP());
+   Serial.println("Connecting to mqtt");
+while(mqtt.connect())
+{
+  Serial.print(".");
+}
+  
+  delay(500);
+
+}
+void loop() {
+  if(mqtt.connected()){
+  long duration, distance;
+  digitalWrite(TRIGGER_PIN, LOW);  // Added this line
+  delayMicroseconds(2); // Added this line
+  digitalWrite(TRIGGER_PIN, HIGH);
+  delayMicroseconds(10); // Added this line
+  digitalWrite(TRIGGER_PIN, LOW);
+  duration = pulseIn(ECHO_PIN, HIGH);
+  distance = (duration/2) / 29.1;   
+   
+  int sensorValue= analogRead(A0);
+  float lpg= sensorValue/5;
+   
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();         
+     
+    if(distance<4){
+      Serial.println("...!!Danger!!...");
+      if(LDR_data.publish("1")){
+        Serial.println("Success for 1");
+      }
+    }else{
+      Serial.println("All OK ");
+      if(LDR_data.publish("0")){
+        Serial.println("Success for 0");
+      }
+    }
+    
+
+ 
+}
+delay(1000);
+}
