@@ -7,8 +7,7 @@
 ## Abstract
 
 > Even the slightest rise in temperature should be seen with caution since if ever the temperature were to rise above the flashpoint of the gas or the liquid. So transporting such liquids/gases should be done with great caution. Even if all the necessary measures are taken to avoid the possibility of an explosion, there is still an element of risk to the person transporting the substance as well as to its surroundings. With the recent advancements in the field of the Internet of Things and electronics, we have access to sensors that can detect gases like LPG, CO, CH4, the slightest variations in temperature etc. So with the help of these sensors coupled with efficient algorithms, we will be able to detect whether the liquid has reached a point where it is no longer safe to transport it. So our project aims to develop an IoT system that can determine the safety level beyond which it is no longer safe to transport the liquid. In such a situation the concerned authorities are notified by our system and suppression measures will turn on.
-<br>
-To make a working model of our project, we have used a DHT11 sensor, an MQ9 sensor, an ultrasonic sensor, an Arduino UNO board and a NodeMCU. This is as far as the hardware is concerned. Regarding the software that was used, we used Arduino IDE, Adafruit Cloud, IFTTT app.
+<br>To make a working model of our project, we have used a DHT11 sensor, an MQ9 sensor, an ultrasonic sensor, an Arduino UNO board and a NodeMCU. This is as far as the hardware is concerned. Regarding the software that was used, we used Arduino IDE, Adafruit Cloud, IFTTT app.
 
 ## Hardware Components
 > • DHT11: It is a temperature sensor. It is used to detect whether the liquid has reached its flashpoint.
