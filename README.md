@@ -1,6 +1,6 @@
 ![](https://github.com/PanduKonala/PanduKonala/blob/main/header_.png)
 <br>
-# [Smart Safety System For LPG Containers](https://pandukonala.github.io/blog-work/lpg_iot/lpg_iot.html)
+# [Smart Safety System For LPG Containers](https://pandukonala.github.io/blog-projects/lpg_iot/lpg_iot.html)
 ## Overview
 > This project is funded by Amrita Vishwa Vidyapeetham. The Objective of the project is to design and develop a Cyber-Physical System for the safe transport system of Liquid Petroleum Gas (LPG) using ultra-sonic, MQ9 & DHT11 sensors which are linked to the cloud.
 
